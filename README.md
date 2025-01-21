@@ -48,3 +48,5 @@ Scalability: Can be expanded to include more features, such as gamification (bad
 
 Unconventional and Unique: The project is humorous, lighthearted, and stands out from conventional development projects.
 <!-- kalvium -->
+
+ASAP milestone 2 done
