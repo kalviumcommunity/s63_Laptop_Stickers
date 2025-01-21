@@ -1,0 +1,25 @@
+{
+  "name": "s63_laptop_stickers",
+  "version": "1.0.0",
+  "description": "Project: Most Bizarre Laptop Stickers Seen in College",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/s63_Laptop_Stickers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/s63_Laptop_Stickers/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/s63_Laptop_Stickers#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9"
+  }
+}
