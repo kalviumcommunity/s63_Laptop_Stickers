@@ -50,3 +50,4 @@ Unconventional and Unique: The project is humorous, lighthearted, and stands out
 <!-- kalvium -->
 
 ASAP milestone 2 done
+Render deployment link  = https://s63-laptop-stickers-5kdl.onrender.com 
