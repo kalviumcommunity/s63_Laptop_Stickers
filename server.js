@@ -1,10 +1,16 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const connectDatabase = require("./database");
+const stickerRoutes = require("./routes/routes");  // Import the routes file
 
 const app = express();
 connectDatabase();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Use the routes from the routes.js file
+app.use("/api", stickerRoutes);  // This will prefix all routes in routes.js with /api
 
 app.get("/ping", (req, res) => {
   try {
