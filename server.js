@@ -20,6 +20,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the API", db_status: status });
 });
 
-app.listen(8000, () => {
-  console.log(`Server is running on port http://localhost:8000`);
+app.listen(6000, () => {
+  console.log(`Server is running on port http://localhost:6000`);
 });
