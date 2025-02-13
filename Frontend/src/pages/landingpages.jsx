@@ -1,23 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
 const LandingPage = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
   return (
-    <div className="landing-container">
-      <h1>Welcome to Procrastinator's Paradise ⏳</h1>
-      <p>
-        Introducing <strong>Procrastinator's Paradise</strong>—the ultimate AI-driven tool designed to help you delay tasks with expert precision! Whether you're dodging chores, pushing back assignments, or finding creative ways to extend deadlines, we've got you covered.
-      </p>
+    <div className="landing-page">
+      {/* Overlay for readability */}
+      <div className="overlay">
+        {/* Bizarre Stickers Hub Title (Above Navbar) */}
+        <h1 className="logo">🎭 Bizarre Stickers Hub</h1>
 
-      <p>Features include:</p>
-      <ul>
-        <li>⏰ <strong>Deadline Extender</strong> – Generate airtight reasons why you *definitely* need more time.</li>
-        <li>🎭 <strong>Excuse Library</strong> – A vast collection of pre-made excuses for every scenario.</li>
-        <li>🚨 <strong>Last-Minute Panic Mode</strong> – Instantly create justifiable delays when the clock is ticking.</li>
-        <li>📅 <strong>Task Shuffle</strong> – Strategically rearrange your priorities (aka, push things further).</li>
-      </ul>
+        {/* Navigation Bar */}
+        <nav className="nav-bar">
+          <div className="nav-links">
+            <button onClick={() => setActiveTab("home")} className={activeTab === "home" ? "active" : ""}>Home</button>
+            <button onClick={() => setActiveTab("gallery")} className={activeTab === "gallery" ? "active" : ""}>Gallery</button>
+            <button onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>Upload</button>
+            <button onClick={() => setActiveTab("leaderboard")} className={activeTab === "leaderboard" ? "active" : ""}>Leaderboard</button>
+          </div>
+        </nav>
 
-      <p>Why do today what you can put off until tomorrow? Start procrastinating smarter today! 🚀</p>
-      <button>Delay Your Tasks Now!</button>
+        {/* Centered Content */}
+        <div className="centered-container">
+          <h2 className="sub-title">💻 Most Bizarre Laptop Stickers Seen in College 🎨</h2>
+          <p className="description">
+            Join the fun! Upload, vote, and explore the wildest, funniest, and most thought-provoking laptop stickers on campus.
+          </p>
+          <button className="explore-btn">Explore Now</button>
+        </div>
+
+        {/* Footer */}
+        <footer className="footer">🚀 Powered by Student Creativity | © 2025</footer>
+      </div>
     </div>
   );
 };
