@@ -1,0 +1,20 @@
+meta {
+  name: New post sticker
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:6000/api/stickers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "imageUrl": "https://example.com/cool-laptop-sticker.jpg",
+    "caption": "The most epic sticker on campus!",
+    "tags": ["cool", "epic", "college"]
+  }
+  
+}

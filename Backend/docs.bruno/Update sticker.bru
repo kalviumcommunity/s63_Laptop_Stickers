@@ -1,0 +1,19 @@
+meta {
+  name: Update sticker
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:6000/api/stickers/67a9db3a60e3931b29ca8b56
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "caption": "Updated funny sticker!",
+    "tags": ["funny", "updated", "college"]
+  }
+  
+}

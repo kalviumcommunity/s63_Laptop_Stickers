@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Sticker = require("../models/schema");  // Import the Sticker model
+const Sticker = require("../docs.bruno/models/schema");  // Import the Sticker model
 
 // CREATE: Add a new sticker
 router.post("/stickers", async (req, res) => {
