@@ -50,4 +50,5 @@ Unconventional and Unique: The project is humorous, lighthearted, and stands out
 <!-- kalvium -->
 
 ASAP milestone 2 done
-Render deployment link  = https://s63-laptop-stickers-1-za7r.onrender.com
+Backend Render deployment link  = https://s63-laptop-stickers-1-za7r.onrender.com
+Frontend Deployment link: https://rad-youtiao-b9ed23.netlify.app/
