@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-  const [activeTab, setActiveTab] = useState("home");
+  const navigate = useNavigate(); // ✅ React Router Hook
 
   return (
     <div className="landing-page">
@@ -13,10 +14,10 @@ const LandingPage = () => {
         {/* Navigation Bar */}
         <nav className="nav-bar">
           <div className="nav-links">
-            <button onClick={() => setActiveTab("home")} className={activeTab === "home" ? "active" : ""}>Home</button>
-            <button onClick={() => setActiveTab("gallery")} className={activeTab === "gallery" ? "active" : ""}>Gallery</button>
-            <button onClick={() => setActiveTab("upload")} className={activeTab === "upload" ? "active" : ""}>Upload</button>
-            <button onClick={() => setActiveTab("leaderboard")} className={activeTab === "leaderboard" ? "active" : ""}>Leaderboard</button>
+            <button onClick={() => navigate("/")} className="active">Home</button>
+            <button onClick={() => navigate("/gallery")}>Gallery</button>
+            <button onClick={() => navigate("/upload")}>Upload</button>
+            <button onClick={() => navigate("/leaderboard")}>Leaderboard</button>
           </div>
         </nav>
 
@@ -26,7 +27,7 @@ const LandingPage = () => {
           <p className="description">
             Join the fun! Upload, vote, and explore the wildest, funniest, and most thought-provoking laptop stickers on campus.
           </p>
-          <button className="explore-btn">Explore Now</button>
+          <button className="explore-btn" onClick={() => navigate("/gallery")}>Explore Now</button>
         </div>
 
         {/* Footer */}
