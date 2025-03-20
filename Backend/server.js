@@ -1,38 +1,41 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");  // Import CORS
-const connectDatabase = require("./database");
-const stickerRoutes = require("./routes/routes");  // Import the routes file
+const cors = require("cors");
+const morgan = require("morgan"); // ✅ Logs requests
+const stickerRoutes = require("./routes/routes");
 
 const app = express();
-connectDatabase();
+const PORT = process.env.PORT || 6001;
 
-// Middleware
-app.use(express.json());  // Parse JSON
-app.use(cors());  // Enable CORS for frontend-backend connection
+// 🔹 Middleware
+app.use(cors()); // ✅ Enables CORS for frontend
+app.use(express.json()); // ✅ Parses JSON requests
+app.use(morgan("dev")); // ✅ Logs requests
 
-// Use the routes from the routes.js file
-app.use("/api", stickerRoutes);  // Prefix all routes in routes.js with /api
+// 🔹 Connect to MongoDB
+mongoose
+  .connect("mongodb://127.0.0.1:27017/stickersDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1); // Exit process if DB connection fails
+  });
 
-// **Ping Route for Health Check**
-app.get("/ping", (req, res) => {
-  res.send("pong");
-});
+// 🔹 Routes
+app.use("/api", stickerRoutes); // ✅ Routes now work under /api
 
-// **Home Route with Database Connection Status**
+// 🔹 Default route (for testing)
 app.get("/", (req, res) => {
-  const status = mongoose.connection.readyState === 1 ? "Connected" : "Not Connected";
-  res.json({ message: "Welcome to the API", db_status: status });
+  res.send("Welcome to the Sticker Gallery API 🎨✨");
 });
 
-// **Global Error Handling Middleware**
-app.use((err, req, res, next) => {
-  console.error("Error:", err.message);
-  res.status(500).json({ error: "Internal Server Error" });
+// 🔹 404 Route (if no other route matches)
+app.use((req, res) => {
+  res.status(404).json({ message: "❌ API route not found" });
 });
 
-// Start the Server
-const PORT = process.env.PORT || 6000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+// 🔹 Start server
+app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));

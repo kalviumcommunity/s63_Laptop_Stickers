@@ -1,65 +1,60 @@
 const express = require("express");
 const router = express.Router();
-const Sticker = require("../models/schema"); // Ensure the correct model path
+const Sticker = require("../models/schema");
+const { validateSticker } = require("../middlewares/validation"); // Ensure this file exists
 
-
-// CREATE: Add a new sticker
-router.post("/stickers", async (req, res) => {
-  try {
-    const newSticker = new Sticker(req.body);
-    await newSticker.save();
-    res.status(201).json({ message: "Sticker added successfully", sticker: newSticker });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-// READ: Get all stickers
+// ✅ GET all stickers
 router.get("/stickers", async (req, res) => {
   try {
     const stickers = await Sticker.find();
-    res.status(200).json({ message: "Stickers retrieved successfully", stickers });
+    res.status(200).json(stickers);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: "❌ Error fetching stickers", error: err.message });
   }
 });
 
-// READ: Get a single sticker by ID
-router.get("/stickers/:id", async (req, res) => {
+// ✅ POST a new sticker (With Validation Middleware)
+router.post("/stickers", validateSticker, async (req, res) => {
   try {
-    const sticker = await Sticker.findById(req.params.id);
-    if (!sticker) {
-      return res.status(404).json({ message: "Sticker not found" });
-    }
-    res.status(200).json({ message: "Sticker retrieved successfully", sticker });
+    const { title, imageUrl } = req.body;
+    const newSticker = new Sticker({ title, imageUrl });
+    await newSticker.save();
+    res.status(201).json(newSticker);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ message: "❌ Error saving sticker", error: err.message });
   }
 });
 
-// UPDATE: Update a sticker by ID
-router.put("/stickers/:id", async (req, res) => {
+// ✅ UPDATE a sticker (With Validation Middleware)
+router.put("/stickers/:id", validateSticker, async (req, res) => {
   try {
-    const updatedSticker = await Sticker.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { title, imageUrl } = req.body;
+    const updatedSticker = await Sticker.findByIdAndUpdate(
+      req.params.id,
+      { title, imageUrl },
+      { new: true, runValidators: true }
+    );
+
     if (!updatedSticker) {
-      return res.status(404).json({ message: "Sticker not found" });
+      return res.status(404).json({ message: "❌ Sticker not found" });
     }
-    res.status(200).json({ message: "Sticker updated successfully", sticker: updatedSticker });
+
+    res.status(200).json(updatedSticker);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ message: "❌ Error updating sticker", error: err.message });
   }
 });
 
-// DELETE: Delete a sticker by ID
+// ✅ DELETE a sticker
 router.delete("/stickers/:id", async (req, res) => {
   try {
     const deletedSticker = await Sticker.findByIdAndDelete(req.params.id);
     if (!deletedSticker) {
-      return res.status(404).json({ message: "Sticker not found" });
+      return res.status(404).json({ message: "❌ Sticker not found" });
     }
-    res.status(200).json({ message: "Sticker deleted successfully" });
+    res.status(200).json({ message: "✅ Sticker deleted successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: "❌ Error deleting sticker", error: err.message });
   }
 });
 

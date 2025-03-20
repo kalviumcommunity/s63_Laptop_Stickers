@@ -1,54 +1,44 @@
-import React, { useState, useEffect } from "react";
-import StickerCard from "./Stickercard"; // ✅ Fixed Import Path
+import React, { useEffect, useState } from "react";
 
 const StickerGallery = () => {
-  const [stickers, setStickers] = useState([]);  // State to store fetched stickers
-  const [loading, setLoading] = useState(true); // State for loading
-  const [error, setError] = useState(null);     // State for handling errors
+  const [stickers, setStickers] = useState([]);
 
   useEffect(() => {
-    // Fetch stickers from the backend API
-    const fetchStickers = async () => {
-      try {
-        const response = await fetch("http://localhost:6000/api/stickers");
-        if (!response.ok) {
-          throw new Error("Failed to fetch stickers");
-        }
-        const data = await response.json();
-        setStickers(data); // Update state with fetched stickers
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStickers();
+    fetch("http://localhost:6001/api/stickers")
+      .then((res) => res.json())
+      .then((data) => setStickers(data))
+      .catch((err) => console.log(err));
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`http://localhost:6001/api/stickers/${id}`, { method: "DELETE" });
+      setStickers(stickers.filter((sticker) => sticker.id !== id));
+    } catch (error) {
+      console.error("Error deleting sticker", error);
+    }
+  };
+
   return (
-    <div className="p-6 bg-gray-900 min-h-screen text-white">
+    <div className="min-h-screen bg-gray-900 text-white p-6">
       <h1 className="text-3xl font-bold text-center mb-6">🔥 Sticker Gallery 🔥</h1>
-      <p className="text-center text-gray-300 mb-4">
-        Browse and vote for the coolest laptop stickers seen on campus!
-      </p>
-
-      {/* Show Loading State */}
-      {loading && <p className="text-center text-yellow-400">Loading Stickers...</p>}
-
-      {/* Show Error Message if API Call Fails */}
-      {error && <p className="text-center text-red-500">{error}</p>}
-
-      {/* Display Stickers if Data is Available */}
-      {!loading && !error && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {stickers.length > 0 ? (
-            stickers.map((sticker) => <StickerCard key={sticker.id} {...sticker} />)
-          ) : (
-            <p className="text-center text-gray-400 col-span-3">No stickers found.</p>
-          )}
-        </div>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {stickers.map((sticker) => (
+          <div key={sticker.id} className="bg-gray-800 p-4 rounded-lg shadow-md relative">
+            <img src={sticker.imageUrl} alt={sticker.title} className="w-full h-48 object-cover rounded" />
+            <h3 className="text-lg font-semibold mt-2">{sticker.title}</h3>
+            <div className="flex justify-between mt-4">
+              <button className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600">Edit</button>
+              <button
+                className="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
+                onClick={() => handleDelete(sticker.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
