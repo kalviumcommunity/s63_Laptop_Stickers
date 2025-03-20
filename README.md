@@ -8,11 +8,16 @@ User Authentication: Secure login and signup via email/password or social media 
 
 Content Uploads: Users can upload photos of bizarre laptop stickers they find. Add captions and tags for better categorization and searchability.
 
+
+
 Tagging System: Stickers can be tagged with keywords like “funny,” “sarcastic,” “techie,” etc. Helps users filter and explore specific types of stickers.
+
+
 
 Voting System: Users can upvote or downvote stickers, with top-rated ones appearing in a leaderboard.
 
 Leaderboard: Weekly, monthly, and all-time leaderboards for the most voted stickers in various categories. Encourages user participation and competition.
+
 
 Search and Filter: Users can search for stickers by keywords or filter by tags, popularity, or upload date.
 
