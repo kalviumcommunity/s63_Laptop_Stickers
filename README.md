@@ -25,6 +25,8 @@ Commenting System: Users can comment on stickers to share reactions or insights 
 
 Moderation Tools: Admin panel for reviewing and managing inappropriate content.
 
+
+
 Tech Stack:
 
 Frontend: React.js: For a dynamic, user-friendly interface. CSS/Bootstrap: For styling and responsive design.
@@ -32,6 +34,8 @@ Frontend: React.js: For a dynamic, user-friendly interface. CSS/Bootstrap: For s
 Backend: Express.js (Node.js): For API endpoints and server-side logic.
 
 Database: MongoDB: To store user accounts, sticker uploads, tags, votes, and comments.
+
+
 
 Authentication: Firebase Authentication or OAuth 2.0: For secure login and account management.
 
