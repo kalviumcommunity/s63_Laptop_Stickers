@@ -5,7 +5,6 @@ import StickerGallery from "./components/StickerGallery";
 import AddSticker from "./pages/AddSticker";
 import UpdateSticker from "./pages/UpdateSticker";
 
-
 const App = () => {
   return (
     <Router>
@@ -20,8 +19,6 @@ const App = () => {
         <Route path="/gallery" element={<StickerGallery />} />
         <Route path="/add-sticker" element={<AddSticker />} />
         <Route path="/update-sticker/:id" element={<UpdateSticker />} />
-        
-
       </Routes>
     </Router>
   );

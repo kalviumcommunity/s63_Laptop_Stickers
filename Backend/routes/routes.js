@@ -7,6 +7,9 @@ const { validateSticker } = require("../middlewares/validation"); // Ensure this
 router.get("/stickers", async (req, res) => {
   try {
     const stickers = await Sticker.find();
+    if (stickers.length === 0) {
+      return res.status(404).json({ message: "❌ No stickers found" });
+    }
     res.status(200).json(stickers);
   } catch (err) {
     res.status(500).json({ message: "❌ Error fetching stickers", error: err.message });
