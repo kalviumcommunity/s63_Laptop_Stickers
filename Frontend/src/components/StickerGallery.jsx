@@ -45,6 +45,12 @@ const StickerGallery = () => {
           <div key={sticker._id} className="bg-gray-800 p-4 rounded-lg shadow-md relative">
             <img src={sticker.imageUrl} alt={sticker.title} className="w-full h-48 object-cover rounded" />
             <h3 className="text-lg font-semibold mt-2">{sticker.title}</h3>
+
+            {/* Show the user's name (from the 'created_by' field) */}
+            {sticker.created_by && (
+              <p className="text-sm text-gray-400 mt-1">Created by: {sticker.created_by.username}</p>
+            )}
+
             <div className="flex justify-between mt-4">
               <a href={`/update-sticker/${sticker._id}`} className="bg-yellow-500 px-3 py-1 rounded hover:bg-yellow-600">
                 Edit
