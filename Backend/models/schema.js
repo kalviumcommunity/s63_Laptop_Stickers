@@ -9,6 +9,10 @@ const stickerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+
+
+  
   caption: {
     type: String,
    
