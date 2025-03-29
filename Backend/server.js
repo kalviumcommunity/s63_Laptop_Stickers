@@ -1,20 +1,22 @@
+require("dotenv").config(); // ✅ Load environment variables FIRST
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const morgan = require("morgan"); // ✅ Logs requests
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const helmet = require("helmet"); // ✅ Adds security headers
+const bodyParser = require("body-parser");
 const stickerRoutes = require("./routes/routes");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 const PORT = process.env.PORT || 6001;
 
-// 🔹 Middleware
-app.use(cors()); // ✅ Enables CORS for frontend
-app.use(express.json()); // ✅ Parses JSON requests
-app.use(morgan("dev")); // ✅ Logs requests
-
-// 🔹 Connect to MongoDB
+// 🔹 MongoDB Connection
+mongoose.set("strictQuery", false);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/stickersDB", {
+  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/stickersDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -24,12 +26,24 @@ mongoose
     process.exit(1); // Exit process if DB connection fails
   });
 
+// 🔹 Middleware
+app.use(cors({ 
+    origin: "http://localhost:5173", // ✅ Allow frontend requests
+    credentials: true // ✅ Enable cookies
+}));
+app.use(express.json()); // ✅ Parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // ✅ Parse URL-encoded bodies
+app.use(cookieParser()); // ✅ Enable cookie parsing
+app.use(morgan("dev")); // ✅ Log API requests
+app.use(helmet()); // ✅ Security headers
+
 // 🔹 Routes
-app.use("/api", stickerRoutes); // ✅ Routes now work under /api
+app.use("/api", stickerRoutes); // ✅ Sticker routes
+app.use("/auth", authRoutes);   // ✅ Authentication routes
 
 // 🔹 Default route (for testing)
 app.get("/", (req, res) => {
-  res.send("Welcome to the Sticker Gallery API 🎨✨");
+  res.send("🎨✨ Welcome to the Sticker Gallery API ✨🎨");
 });
 
 // 🔹 404 Route (if no other route matches)
@@ -37,5 +51,11 @@ app.use((req, res) => {
   res.status(404).json({ message: "❌ API route not found" });
 });
 
-// 🔹 Start server
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+// 🔹 Handle Uncaught Errors (Prevents Server Crash)
+process.on("uncaughtException", (err) => {
+  console.error("🔥 Uncaught Exception:", err);
+  process.exit(1); // Exit to avoid unstable state
+});
+
+// 🔹 Start Server
+app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
