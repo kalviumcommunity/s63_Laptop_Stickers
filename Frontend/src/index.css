@@ -1,136 +1,18 @@
-/* Apply black background */
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
-  background: black;
-  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #0a0e17;
   color: white;
-}
-
-/* Overlay for better readability - Removed as it's not needed on black background */
-
-/* Bizarre Stickers Hub Title */
-.logo {
-  font-size: 3rem;
-  font-weight: bold;
-  color: yellow;
-  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-  letter-spacing: 1px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* Navigation Bar */
-.nav-bar {
-  position: absolute;
-  top: 100px;
-  width: 100%;
-  padding: 10px 20px;
-  text-align: center;
-  z-index: 10;
-}
-
-.nav-links button {
-  background: none;
-  color: white;
-  border: 2px solid white;
-  font-weight: bold;
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.nav-links button:hover {
-  background: yellow;
-  color: black;
-}
-
-.nav-links button.active {
-  background: yellow;
-  color: black;
-  border: none;
-}
-
-/* Centered Container for Main Content */
-.centered-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-  text-align: center;
-  position: relative;
-}
-
-/* Sub-title and Description Styling */
-.sub-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  margin-top: 20px;
-}
-
-.description {
-  font-size: 1.2rem;
-  color: white;
-  margin-top: 10px;
-  max-width: 600px;
-  margin: 20px auto;
-  text-align: center;
-}
-
-/* Explore Button */
-.explore-btn {
-  background: yellow;
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s ease-in-out;
-}
-
-.explore-btn:hover {
-  background: orange;
-  color: white;
-}
-
-/* Footer */
-.footer {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.8;
-  color: white;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .logo {
-    font-size: 2rem;
-  }
-
-  .sub-title {
-    font-size: 1.5rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-
-  .nav-bar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-links button {
-    padding: 10px;
-  }
+  overflow-x: hidden;
 }

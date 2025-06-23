@@ -28,8 +28,10 @@ mongoose
 
 // 🔹 Middleware
 app.use(cors({ 
-    origin: "http://localhost:5173", // ✅ Allow frontend requests
-    credentials: true // ✅ Enable cookies
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"], // ✅ Allow frontend requests
+    credentials: true, // ✅ Enable cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json()); // ✅ Parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // ✅ Parse URL-encoded bodies
@@ -39,7 +41,7 @@ app.use(helmet()); // ✅ Security headers
 
 // 🔹 Routes
 app.use("/api", stickerRoutes); // ✅ Sticker routes
-app.use("/auth", authRoutes);   // ✅ Authentication routes
+app.use("/api/auth", authRoutes);   // ✅ Authentication routes
 
 // 🔹 Default route (for testing)
 app.get("/", (req, res) => {
