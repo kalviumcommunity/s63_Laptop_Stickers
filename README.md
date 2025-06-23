@@ -250,5 +250,8 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ## 🌐 Deployment
 
-
 ### Live Deployment Links
+- **Frontend**: [https://laptop-stickers.netlify.app/](https://laptop-stickers.netlify.app/)
+- **Backend API**: [https://s63-laptop-stickers-2-skyt.onrender.com](https://s63-laptop-stickers-2-skyt.onrender.com)
+
+
