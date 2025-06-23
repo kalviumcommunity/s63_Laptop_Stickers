@@ -15,6 +15,25 @@ router.get("/stickers", async (req, res) => {
   }
 });
 
+// ✅ GET stickers by user ID
+router.get("/stickers/user/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    // Validate userId
+    if (!userId) {
+      return res.status(400).json({ message: "❌ User ID is required" });
+    }
+    
+    // Find stickers by user ID
+    const stickers = await Sticker.find({ created_by: userId }).sort({ createdAt: -1 });
+    
+    res.status(200).json(stickers);
+  } catch (err) {
+    res.status(500).json({ message: "❌ Error fetching user stickers", error: err.message });
+  }
+});
+
 // ✅ POST a new sticker
 router.post("/stickers", validateSticker, async (req, res) => {
   try {
